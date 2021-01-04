@@ -17,7 +17,9 @@ Course structure was as follows:
 - Switch to a final partner (in my case I onboarded this new partner)
 - Present third/final codebase to professor
 
-whiteoak - The first codebase. All code in here is me and my first partner's (pair programmed). 
+clint - The original codebase I was assigned to. My partner dropped the course so these were completed solo.
+
+whiteoak - The first codebase. All code in here is me and my first partner's (pair programmed) besides B/ and C/ which I completed in clint/ 
 
 robs - The codebase I onboarded onto. Majority of the code here is not written by me. Worked on 2 assignments with new partner on this codebase.
 
