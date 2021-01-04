@@ -9,6 +9,7 @@ The scope of this project went:
 - Tournament Managers that can run entire tournaments by taking in signups and grouping players into games and running those games in rounds until winner(s) emerge.
 - Allowing remote players by adapting local code using a proxy pattern.
 - Implementing remote players over actual network connections (incomplete in this final codebase). 
+- (Optional) GUI interface for the game. Was not tackled by me or my partner due to lack of time provided.
 
 Course structure was as follows:
 - Work with first partner for majority of semester
