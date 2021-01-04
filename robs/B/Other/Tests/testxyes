@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+test1_output=$(python3 ../xyes.py -limit dan dan)
+expected1="dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan dan"
+echo $test1_output > writefilefortests
+
+test2_output=$(python3 ../xyes.py -limit)
+expected2="hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world hello world"
+echo $test2_output >> writefilefortests
+
+test3_output=$(python3 ../xyes.py -limit dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln)
+expected3="dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln dsjsolhk hsdofsdnflskm hdsufolnc hosfocljn huosdcnl hojdscln"
+echo $test3_output >> writefilefortests
+
+test4_output=$(python3 ../xyes.py -limit adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL)
+expected4="adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL adsoifja ndsujohfunkjasdjnalksfjdnflsjdnj! ! NULL"
+echo $test4_output >> writefilefortests
+
+test5_output=$(python3 ../xyes.py -limit NULL)
+expected5="NULL NULL NULL NULL NULL NULL NULL NULL NULL NULL NULL NULL NULL NULL NULL NULL NULL NULL NULL NULL"
+echo $test5_output >> writefilefortests
+
+count=1
+
+while IFS= read -r line; do
+
+if [ $count -eq 1 ] && [ "$line" == "$expected1" ]
+then
+    echo "test 1 passes"
+    count=$[count+1]
+elif [ $count -eq 2 ]  && [ "$line" == "$expected2" ]
+then
+    echo "test 2 passes"
+    count=$[count+1]
+elif [ $count -eq 3 ] && [ "$line" == "$expected3" ]
+then
+    echo "test 3 passes"
+    count=$[count+1]
+elif [ $count -eq 4 ]  && [ "$line" == "$expected4" ]
+then
+    echo "test 4 passes"
+    count=$[count+1]
+elif [ $count -eq 5 ]  && [ "$line" == "$expected5" ]
+then
+    echo "test 5 passes"
+    count=$[count+1]
+else
+    echo "test $count failed"
+    count=$[count+1]
+fi
+
+done < writefilefortests

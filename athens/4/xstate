@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+#source Other/D_env/bin/activate
+value=$(cat)
+python3 ../Fish/Common/xstate.py "$value"

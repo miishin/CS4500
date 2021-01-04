@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+
+from json import dumps, loads
+from sys import stdin, stdout, path
+
+# somewhat janky way to be able to import board.py from Common/
+path.insert(0, "../Fish/Common")
+from jsoninterpreter import json_mrq, convert_dw_to_pos
+import game_tree
+import re
+
+TOP = (0, -2)
+TOP_RIGHT = (1, -1)
+BOTTOM_RIGHT = (1, 1)
+BOTTOM = (0, 2)
+BOTTOM_LEFT = (-1, 1)
+TOP_LEFT = (-1, -1)
+DIRECTIONS = [TOP, TOP_RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, TOP_LEFT]
+
+# Returns whether Position 1 and Position 2 are neighbors in a given direction
+# aka whether P2 is in a given direction from P1
+# Signature: Position Position -> Boolean
+def neighbors(p1, p2, direction):
+    return tuple(x + y for x, y in zip(p1, direction)) == p2
+
+# tie-breaks moves
+# by the top-most row of the "from" position,
+# the left-most column of the "from" position,
+# the top-most row of the "to" position,
+# and the left-most column of the "to" position
+# in that order
+# Signature: Listof(Move) -> Move
+def tie_breaker(moves):
+    if len(moves) == 1:
+        return moves[0]
+    mv = tie_breaker_helper(moves, 1, 0)
+    mv = tie_breaker_helper(mv, 0, 0)
+    mv = tie_breaker_helper(mv, 1, 1)
+    mv = tie_breaker_helper(mv, 0, 1)
+    return mv[0]
+
+# Helper for tie breaking
+# comp - which value to compare
+# 1 = row, 0 = col
+# pos - which position of the move to compare
+# 0 = from position, 1 = to position
+# Returns a list of moves after breaking any ties (if only one left it will be a list of one)
+# Signature: Listof(Move) Integer Integer -> Listof(Move)
+def tie_breaker_helper(moves, comp, pos):
+    if len(moves) == 1:
+        return moves
+    ties = []
+    best = moves[0]
+    ties.append(best)
+    for mv in moves:
+        if mv[comp][pos] < best[comp][pos]:
+            ties = []
+            best = mv
+            ties.append(best)
+        elif mv[comp][pos] == best[comp][pos]:
+            ties.append(mv)
+    return ties
+
+# Reads in from stdin
+infile = stdin.read()
+
+# get json object
+jsonobj = loads(infile)
+
+# convert to GameTree node + specified Move
+tree_move = json_mrq(jsonobj)
+state = tree_move[0]
+move = tree_move[1]
+
+tree = game_tree.GameTree(state)
+# Generate children for the tree using the move
+tree.generate_children()
+next_node = tree.expand_node(move)
+
+# Find the possible moves for the next player
+next_state = next_node.state
+possible_moves = next_state.get_player_moves(next_state.turn)
+
+neighbor_pos = tuple(move[1])
+
+the_move = False
+
+for direction in DIRECTIONS:
+    moves = []
+    for avatar in possible_moves:
+        for dest in possible_moves[avatar]:
+            if neighbors(neighbor_pos, dest, direction):
+                moves.append((avatar.position, dest))
+    if moves:
+        temp_move = tie_breaker(moves)
+        the_move = (convert_dw_to_pos(temp_move[0]), convert_dw_to_pos(temp_move[1]))
+        break
+
+json_string = dumps(the_move)
+stdout.write(json_string)

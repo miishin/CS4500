@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+source Other/Fish_env/bin/activate
+python3 Fish.py $1

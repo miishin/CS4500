@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ $# -eq 0 ]
+        then
+                value=$(cat)
+        else
+                value=$@
+fi
+python3 Other/xjson.py "$value"

@@ -1,0 +1,30 @@
+#!/bin/bash
+
+cd ../3/Other
+echo "Running xboard test harness"
+./runxboard.sh
+cd ..
+cd ../4/Other
+echo "Running xstate test harness"
+./runxstate.sh
+cd ..
+cd ../5/Other
+echo "Running xtree test harness"
+./runxtree.sh
+cd ..
+cd ../6/Other
+echo "Running xstrategy test harness"
+./runxstrategy.sh
+cd ..
+cd ..
+cd Fish/Common
+echo "Running board.py unittests"
+python3 boardtests.py
+echo "Running state.py unittests"
+python3 statetests.py
+echo "Running game_tree.py unittests"
+python3 game_tree_tests.py
+cd ../Player
+echo "Running strategy.py unittests"
+python3 strategytests.py
+cd ..

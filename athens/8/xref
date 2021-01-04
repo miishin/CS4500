@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+#source Other/D_env/bin/activate
+value=$(cat)
+cd ../Fish/Common/
+python3 xref.py "$value"

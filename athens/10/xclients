@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+value=$(cat)
+cd ../Fish/Remote/
+python3 xclients.py "$value"

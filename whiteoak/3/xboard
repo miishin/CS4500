@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+from json import dumps, loads
+from sys import stdin, stdout, path
+
+# somewhat janky way to be able to import board.py from Common/
+path.insert(0, "../Fish/Common")
+import board, jsoninterpreter
+
+# Reads in from stdin
+infile = stdin.read()
+# get json object
+jsonobj = loads(infile)
+# convert to a board
+board = jsoninterpreter.json_to_board(jsonobj['board'])
+# grab the position value
+position = jsonobj['position']
+# find all the moves from position on the board
+answer = len(board.get_moves(*position))
+# write to stdout
+stdout.write(dumps(answer))

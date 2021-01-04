@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd Other
+chmod +x xtcp.py
+./xtcp.py "$@"
+cd ..
+

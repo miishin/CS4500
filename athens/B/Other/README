@@ -1,0 +1,14 @@
+B — Command Line homework
+
+instructions to run:
+first ensure that you have python3 installed
+then navigate to the B Directory and enter:
+$ chmod +x xyes
+after that you can run xyes by entering:
+$ ./xyes <-limit> arg0 arg1 arg2 ... argN
+
+instructions to test:
+navigate to the Tests Directory within Other and enter:
+$ chmod +x testxyes
+after that you can run testxyes by entering:
+$ ./testxyes

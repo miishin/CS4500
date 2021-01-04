@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+
+from json import dumps, loads
+from sys import stdin, stdout, path
+
+# somewhat janky way to be able to import board.py from Common/
+path.insert(0, "../Fish/Common")
+import board, jsoninterpreter
+import re
+
+TOP = (0, -2)
+TOP_RIGHT = (1, -1)
+BOTTOM_RIGHT = (1, 1)
+BOTTOM = (0, 2)
+BOTTOM_LEFT = (-1, 1)
+TOP_LEFT = (-1, -1)
+DIRECTIONS = [TOP, TOP_RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, TOP_LEFT]
+
+
+def move(state, pos, direction, occupied):
+    mv = state.get_moves_in_direction(pos, direction)
+    if mv:
+        return mv[0]
+    else:
+        return None
+
+
+# Reads in from stdin
+infile = stdin.read()
+# get json object
+jsonobj = loads(infile)
+# convert to a state
+state = jsoninterpreter.json_to_state(jsonobj)
+# move first penguin in first available direction: North, Northeast, Southeast, South, Southwest, Northwest
+penguin = state.players[0].avatars[0]
+occupied = state.occupied_tiles()
+for direction in DIRECTIONS:
+    step = move(state, penguin.position, direction, occupied)
+    if step:
+        state.move_avatar(state.players[0], penguin, (penguin.position, step))
+        break
+# Return the state
+json_state = state.return_json()
+json_string = dumps(json_state, indent=2)
+stdout.write(json_string)

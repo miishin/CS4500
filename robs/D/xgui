@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source Other/D_env/bin/activate
+python3 Other/xgui.py $1
+

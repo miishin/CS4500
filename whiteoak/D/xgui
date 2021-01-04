@@ -1,0 +1,4 @@
+#!/bin/bash
+cd Other
+python2 xgui.py "$@"
+cd ..
